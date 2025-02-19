@@ -1,13 +1,13 @@
 node {
-    stage ('checkout') {
+    stage('checkout') {
         checkout scm
     }
 
-    stage ('build') {
+    stage('build') {
         def flaskImage = docker.build("flask-app:${env.BUILD_ID}", "--target builder .")
     }
 
-    stage ('test') {
+    stage('test') {
         flaskImage.inside {
             sh "nohup python3 app.py &"
 
